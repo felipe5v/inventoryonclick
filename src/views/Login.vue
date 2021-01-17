@@ -9,15 +9,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         </div>
         <div class="bodyLogin">
-            <img class="wave" src="../assets/img3.jpg"/>
+            <img class="wave" src="../assets/img3.png"/>
             <div class="containerLogin">
-                <div class="img">
-                    <img src="../assets/img1.svg">
-                </div>
                 <div class="login-content">
                     <form v-on:submit.prevent="processAuthUser">
-                        <img src="../assets/img6.jpeg">
-                        <h3 class="title">Business Work</h3>
+                        <h3 class="title">Inventary-OnClick</h3>
                         <div class="input-div one">
                         <div class="i">
                                 <i class="fas fa-user"></i>
@@ -36,8 +32,18 @@
                                     <input type="password" class="input" v-model="user_in.password" name="Contraseña">
                             </div>
                         </div>
-                        <button type="submit" class="btnLogin">Iniciar Sesión</button>
+                        <br>
+                        <b-container class="text-button">
+                            <b-row>
+                                <br>
+                                <b-col sm="5"><b-button variant="link" @click="recovery">¿Olvidaste tu contraseña?</b-button></b-col>
+                                <b-col sm="7"><button type="submit" class="btnLogin">Iniciar Sesión</button></b-col>
+                            </b-row>
+                        </b-container>
                     </form>
+                </div>
+                <div class="img">
+                    <img src="../assets/logo_def.svg">
                 </div>
             </div>
         </div>
@@ -80,12 +86,15 @@ export default {
         }
     },
     methods: {
-         processAuthUser: function(){
+        recovery() {
+            this.$emit("click");
+        },
+        processAuthUser: function(){
             var self = this
             axios.post("https://inventoryonclickback.herokuapp.com/login/", self.user_in,  {headers: {}})
                 .then((result) => {
                     if(result.data.Autenticado == true){
-                        self.$emit('log-in', self.user_in.username)}
+                        self.$emit('log-in', self.user_in.username, result.data.Tipo)}
                 })
                 .catch((error) => {
                     
@@ -111,34 +120,33 @@ export default {
 }
 
 .wave{
-	position: fixed;
-	color: rgb(194, 213, 216);
+	position:fixed;
 	bottom: 0;
-	left: 0;
-	width: 100%;
-	height: 15%;
+	left: 0%;
+	width: 110%;
+	height: 30%;
 	z-index: -1;
 }
 
 .containerLogin{
-    width: 100vw;
-    height: 100vh;
+    width: 90vw;
+    height: 90vh;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-gap :7rem;
+    grid-gap :3rem;
     padding: 0 2rem;
+	margin-left: 0%;
 }
 
 .img{
 	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	
+	justify-content:flex-start;
+	align-items:baseline;
 }
 
 .login-content{
 	display: flex;
-	justify-content: flex-start;
+	justify-content: flex-end;
 	align-items: center;
 	text-align: center;
 }
@@ -146,12 +154,13 @@ export default {
 .img img{
 	width: 500px;
 	position: relative;
-	top: 125px; /* ajustar los valores para mover la imagen */
+	top: 170px; /* ajustar los valores para mover la imagen */
     
 }
 
 form{
-	width: 360px;
+	width: 450px;
+    margin-bottom: 15%;
 }
 
 .login-content img{
@@ -170,7 +179,7 @@ form{
     display: grid;
     grid-template-columns: 7% 93%;
     margin: 25px 0;
-    padding: 5px 0;
+    padding: 2px 0;
     border-bottom: 2px solid #d9d9d9;
 }
 
@@ -274,7 +283,7 @@ a:hover{
 	border-radius: 25px;
 	outline: none;
 	border: none;
-	background-image: linear-gradient(to right, #312670, #38d39f, #32be8f);
+	background-image: linear-gradient(to right, #312670, #38d3d3, #32b9be);
 	background-size: 200%;
 	font-size: 1.2rem;
 	color: #fff;
@@ -288,6 +297,9 @@ a:hover{
 	background-position: right;
 }
 
+.text-button{
+	align-items:initial;
+}
 
 @media screen and (max-width: 1050px){
 	.container{
@@ -297,7 +309,7 @@ a:hover{
 
 @media screen and (max-width: 1000px){
 	form{
-		width: 290px;
+		width: 400px;
 	}
 
 	.login-content h2{
@@ -327,4 +339,6 @@ a:hover{
 		justify-content: center;
 	}
 }
+
+
 </style>

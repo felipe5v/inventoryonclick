@@ -13,7 +13,6 @@
             type="text"
             placeholder="Ingrese un nombre de usuario"
             required
-            autofocus
             ></b-form-input>
         </b-form-group>
 

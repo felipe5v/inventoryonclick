@@ -6,7 +6,7 @@
     <div id="nav">
       <Navbar v-if="is_auth" @click="click" />
     </div>
-    <router-view v-on:log-in="logIn" />
+    <router-view v-on:log-in="logIn" @click="recovery"/>
   </div>
 </template>
 
@@ -20,7 +20,7 @@ export default {
         is_auth: localStorage.getItem('isAuth') || false
       }    
   },
-  components: { "Navbar": Navbar },
+  components: { "Navbar": Navbar},
 
   computed:{
     ...mapGetters(["getSpinner"])
@@ -40,22 +40,29 @@ export default {
       
     },
 
-    logIn: function(username){
+    logIn: function(username, client){
       localStorage.setItem('current_username', username)
+      localStorage.setItem('client', client)
       localStorage.setItem('isAuth', true)
       this.updateAuth()
     },
 
     click(){
       localStorage.removeItem('isAuth')
+      localStorage.removeItem('client')
       localStorage.removeItem('current_username')
       this.updateAuth()
-    }
     },
-
-    created: function(){
-    this.updateAuth()
+    recovery(){
+      var me = this
+      me.$router.push({name: "Recovery"})
     }
+  },
+
+  created: function(){
+    this.updateAuth()
+  }
+
 };
 </script>
 
