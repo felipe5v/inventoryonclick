@@ -47,7 +47,7 @@ export default {
 
 <style>
 .navbar {
-    background: linear-gradient(90deg, #362886 0%, #4f4a6b 100%);
+    background: linear-gradient(90deg, #239E9C 0%, #57A19F 100%);
 }
 .nav-link:hover {
     color: white !important;

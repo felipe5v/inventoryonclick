@@ -1,20 +1,19 @@
 <template>
   <div class="home">
     <h1 style="text-align: left; padding-left: 18rem; padding-bottom: 1rem;">Agregado recientemente</h1>
-    <b-container class="col-7" style="min-width: 50rem; margin: center;">
-      <b-row style="margin: center">
+    <div class="row">
         <ProductCard style="margin: center"
           :refer="products.ref"
           :name="products.name"
           :date="products.date"
           :price="products.price"
           :qty="products.qty"
-          :category="products.category"     
+          :category="products.category"
+          :url="products.url"     
           v-for="products in getDisplayProducts"
           :key="products.ref"
 
         />
-      </b-row>
       <b-pagination
         v-model="currentPage"
         :total-rows="getRows"
@@ -25,7 +24,7 @@
         last-text="Last"
         @input="paginate(currentPage)"
       ></b-pagination>
-    </b-container>
+    </div>
   </div>
 </template>
 

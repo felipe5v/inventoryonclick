@@ -115,7 +115,6 @@ import firebase from 'firebase'
             this.form.url = url;	
         });	
         await axios.post('https://inventoryonclickback.herokuapp.com/products/', JSON.stringify(this.form));	
-        	
       },	
       onReset(event) {	
         event.preventDefault()	

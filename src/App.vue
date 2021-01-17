@@ -82,10 +82,10 @@ export default {
 
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: #1c252e;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: #03241e;
     }
   }
 }
