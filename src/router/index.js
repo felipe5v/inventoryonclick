@@ -16,10 +16,16 @@ const routes = [
     component: () => import('../views/AddProduct.vue')
   },
   {
-    path: "/login/",
+    path: "/login",
     name: "Login",
     component:() =>
     import("../views/Login.vue")
+  },
+  {
+    path: "/crearusuario",
+    name: "CreateUser",
+    component:() =>
+    import("../views/CreateUser.vue")
   },
   { path: '/recuperar',
     name: 'Recovery',
