@@ -8,7 +8,7 @@
       <b-collapse id="nav-collapse" is-nav>
 
         <b-navbar-nav id="buscador">
-            <b-nav-form>
+            <b-nav-form @submit.prevent="search" >
                 <b-input-group>
                     <b-input-group-prepend>
                     <span class="input-group-text"><i class="fas fa-search"></i></span>
@@ -18,7 +18,7 @@
             </b-nav-form>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
-          <b-nav-item class="headericon textonav" >Salir</b-nav-item>
+          <b-nav-item class="headericon textonav" @click="salir">Salir</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -27,9 +27,22 @@
 
 <script>
 export default {
-    name: 'Navbar'
-
-}
+  name: 'Navbar',
+  methods: {
+    salir() {
+      this.$emit("click");
+    }
+    ,
+    search() {
+      this.$store.dispatch("search", { text: this.searchText });
+    }
+  },
+  data() {
+    return {
+      searchText: ""
+    };
+  }
+};
 </script>
 
 <style>
