@@ -43,7 +43,7 @@ export default {
   data() {
     return {
       currentPage: 1,
-      perPage: 3
+      perPage: 8
     };
   },
   components: { "ProductCard": ProductCard },

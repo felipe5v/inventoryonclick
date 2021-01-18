@@ -13,7 +13,7 @@ export default new Vuex.Store({
     displayProductsNotification: [],
     rowsnotification: 0,
     rows: 0,
-    showSpinner: false
+    showSpinner: false,
   },
   mutations: {
     SET_PRODUCTS(state, products) {
@@ -48,12 +48,12 @@ export default new Vuex.Store({
     },
     async fetchProducts({ dispatch }) {
       const myJson = await dispatch("fetchData");
-      dispatch("updatePagination", { myJson, currentPage: 1, perPage: 10 });
+      dispatch("updatePagination", { myJson, currentPage: 1, perPage: 8 });
       return myJson;
     },
     async paginate({ commit, state }, { currentPage, perPage }) {
       const start = (currentPage - 1) * perPage;
-      const products = state.products.slice(start, start + 10);
+      const products = state.products.slice(start, start + 8);
       commit("SET_DISPLAY_PRODUCTS", products);
     },
     async search({ dispatch }, { text }) {
@@ -68,7 +68,7 @@ export default new Vuex.Store({
         perPage: 10
       });
     },
-    
+
 
   },
   getters: {
@@ -83,7 +83,7 @@ export default new Vuex.Store({
     },
     getSpinner(state) {
       return state.showSpinner;
-    }
+    },
   },
   modules: {}
 });
