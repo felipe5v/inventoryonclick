@@ -21,10 +21,10 @@
         v-model="currentPage"
         :total-rows="getRows"
         :per-page="perPage"
-        first-text="First"
-        prev-text="Prev"
-        next-text="Next"
-        last-text="Last"
+        first-text="Primer Página"
+        prev-text="Atras"
+        next-text="Siguiente"
+        last-text="Ultima Página"
         @input="paginate(currentPage)"
       ></b-pagination>
     </div>
