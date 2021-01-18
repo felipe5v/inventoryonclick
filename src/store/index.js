@@ -59,7 +59,7 @@ export default new Vuex.Store({
     async search({ dispatch }, { text }) {
       const myJson = await dispatch("fetchData");
       const values = myJson.filter(val => {
-        return val.name_doc.toLowerCase().includes(text.toLowerCase());
+        return val.name.toLowerCase().includes(text.toLowerCase());
       });
 
       dispatch("updatePagination", {

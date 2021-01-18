@@ -7,19 +7,25 @@
 
       <b-collapse id="nav-collapse" is-nav>
 
-        <b-navbar-nav id="buscador" style="margin-left: 3%; height: 76px; width: 500px;">
+        <b-navbar-nav id="buscador" style="margin-left: 3%; height: 60px; width: 480px;">
             <b-nav-form @submit.prevent="search" >
                 <b-input-group >
                     <b-input-group-prepend>
                     <span class="input-group-text"><i class="fas fa-search"></i></span>
                     </b-input-group-prepend>
-                    <b-form-input placeholder="Busca productos de interes" style="width: 420px"></b-form-input>
+                    <b-form-input placeholder="Busca productos de interes"  v-model="searchText" style="width: 420px"></b-form-input>
                 </b-input-group>
             </b-nav-form>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
           <b-nav-item class="headericon textonav" to="/crearusuario/">Agregar Usuario</b-nav-item>
-          <b-nav-item class="headericon textonav" to="/agregar/">Agregar Producto</b-nav-item>
+          <b-nav-item-dropdown > 
+           <template v-slot:button-content>
+              Administrar Productos
+            </template>
+            <b-dropdown-item class="headericon textonav" to="/agregar/">Agregar</b-dropdown-item>
+            <b-dropdown-item class="headericon textonav" to="/actualizar/">Actualizar</b-dropdown-item>
+          </b-nav-item-dropdown>
           <b-nav-item class="headericon textonav" @click="salir">Salir</b-nav-item>
         </b-navbar-nav>
       </b-collapse>

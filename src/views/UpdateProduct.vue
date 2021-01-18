@@ -17,7 +17,7 @@
             placeholder=""
             required	
             autofocus	
-            
+            @blur="close"	
             ></b-form-input>	
         </b-form-group>	
         <br>
@@ -65,21 +65,7 @@
             required	
             ></b-form-input>	
         </b-form-group>	
-        <b-form-group id="input-group-5" label="Imagen del producto:"	
-        label-for="input-5">	
-            <b-form-file	
-            accept="image/*"	
-            v-model="file1"	
-            :state="Boolean(file1)"	
-            placeholder="Escoja una imagen..."	
-            drop-placeholder="Sulte la imagen aqui..."	
-            browse-text="Buscar"	
-            required	
-            ></b-form-file>	
-            <br><br>
-            <div class="d-flex flex-row">Url de Imagen: {{ file1 ? file1.name : '' }}</div>	
-        </b-form-group>	
-      <b-button style="margin-right: 3%;  font-weight: bold; font-size: 18px;" type="submit"  pill variant="primary">Enviar</b-button>	
+      <b-button style="margin-right: 3%;  font-weight: bold; font-size: 18px;" type="submit"  pill variant="primary">Actualizar</b-button>	
       <b-button style="font-weight: bold; font-size: 18px;" type="reset" pill variant="outline-secondary">Limpiar</b-button>	
     </b-form>	
   </div>	
@@ -87,7 +73,6 @@
 
 <script>	
 import axios from "axios"	
-import firebase from 'firebase'	
   export default {	
     data() {	
       return {	
@@ -98,7 +83,6 @@ import firebase from 'firebase'
             price: null,	
             qty: null,	
             category: '',	
-            url: null	
         },	
         file1: null,	
         show: true	
@@ -120,6 +104,9 @@ import firebase from 'firebase'
     },
     methods: {	
 
+      close(){
+      this.processData()
+      },
       processData: function(){
             axios.get("https://inventoryonclickback.herokuapp.com/products/" + this.form.ref)
                 .then((result) => {
@@ -129,10 +116,10 @@ import firebase from 'firebase'
                     this.form.qty = datos.qty
                     this.form.category = datos.category
                 })
-                .catch((error) => {
-                  if (error.response.status == "404")
-                    alert("ERROR 404: Datos no encontrados.");   
-                });
+                /*.catch((error) => {
+                  if (error.response.status == "500")
+                   this.onReset
+                  });*/
       },
 
       async onSubmit(event) {	
@@ -143,21 +130,25 @@ import firebase from 'firebase'
         var today = new Date();	
         var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();	
         this.form.date = date;	
-        const storageRef = firebase.storage().ref(`/Imagenes/${this.form.ref}`);	
-        await storageRef.put(this.file1);	
-        await storageRef.getDownloadURL().then((url)=>{	
-            this.form.url = url;	
-        });	
-        await axios.post('https://inventoryonclickback.herokuapp.com/products/', JSON.stringify(this.form));	
+        let post = {
+          name: this.form.name,
+          date: this.form.date,
+          price: this.form.price,
+          qty: this.form.qty,
+          category: this.form.category
+        };
+        await axios.put("https://inventoryonclickback.herokuapp.com/products/?ref=" + this.form.ref , post);
       },	
+      
+
       onReset(event) {	
-        event.preventDefault()	
-        // Reset our form values	
-        this.form.email = ''	
-        this.form.name = ''	
-        this.form.food = null	
-        this.form.checked = []	
-        // Trick to reset/clear native browser form validation state	
+        event.preventDefault()		
+        this.form.ref = null
+        this.form.name = ""
+        this.form.date = null
+        this.form.price = null
+        this.form.category = "" 
+        this.form.qty = null
         this.show = false	
         this.$nextTick(() => {	
           this.show = true	

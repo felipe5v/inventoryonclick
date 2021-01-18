@@ -35,8 +35,9 @@ export default {
 
       if(self.is_auth == null){
         self.$router.push({name: "Login"})
+      }else{
+        self.$router.push({name: "Home"})
       }
-
       if(self.is_auth == false){
         self.$router.push({name: "Login"})
       }

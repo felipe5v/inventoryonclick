@@ -60,12 +60,12 @@ export default {
     close(){
       this.show = false
     },
-    onSubmit(event) {	
+    async onSubmit(event) {	
       event.preventDefault()
         let post = {
           qty: this.form.qty,
         };
-        axios.put('https://inventoryonclickback.herokuapp.com/products/'+ this.refer, post)
+        await axios.put('https://inventoryonclickback.herokuapp.com/products/'+ this.refer, post)
         this.show = false;
       
     }

@@ -12,7 +12,7 @@
             <img class="wave" src="../assets/img3.png"/>
             <div class="containerLogin">
                 <div class="login-content">
-                    <form v-on:submit.prevent="processAuthUser">
+                    <form class="hed" v-on:submit.prevent="processAuthUser">
                         <h3 class="title">Inventary-OnClick</h3>
                         <div class="input-div one">
                         <div class="i">
@@ -158,7 +158,7 @@ export default {
     
 }
 
-form{
+.hed{
 	width: 450px;
     margin-bottom: 15%;
 }
