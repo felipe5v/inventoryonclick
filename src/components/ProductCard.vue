@@ -44,28 +44,32 @@ export default {
   data() {	
       return {	
         form: {	
-            qty: 2
+            qty: ""
         },
         show: false
       }
   },
   methods: {
-    async click(){
-      await this.updateqty()
-      this.show = true
+    click(){
+      axios.get('https://inventoryonclickback.herokuapp.com/products/'+ this.refer +'/qty').then(response => {var datos = response.data;
+      this.form.qty = datos;
+      this.show = true;})
 
     },
-    updateqty(){
-      axios.get('https://inventoryonclickback.herokuapp.com/products/'+ this.refer +'/qty').then(response => {var datos = response.data;
-      this.form.qty = datos;})
-    },
+  
     close(){
       this.show = false
+    },
+    onSubmit(event) {	
+      event.preventDefault()
+        let post = {
+          qty: this.form.qty,
+        };
+        axios.put('https://inventoryonclickback.herokuapp.com/products/'+ this.refer, post)
+        this.show = false;
+      
     }
   },
-  created: function () {
-    this.updateqty()
-  }
   
 }
 </script>
