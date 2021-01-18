@@ -27,24 +27,28 @@ export default {
   },
 
   methods:{
+
+
     updateAuth: function(){
       var self = this
-      self.is_auth  = localStorage.getItem('isAuth') || false
+      self.is_auth  = localStorage.getItem('isAuth')
 
-      if(self.is_auth == false){
+      if(self.is_auth == null){
         self.$router.push({name: "Login"})
       }
       else{
-        self.$router.push({name: "Home"})
+        this.$router.push({name: "Home"})
       }
-      
+      if(self.is_auth == false){
+        self.$router.push({name: "Login"})
+      }
     },
 
     logIn: function(username, client){
       localStorage.setItem('current_username', username)
       localStorage.setItem('client', client)
       localStorage.setItem('isAuth', true)
-      this.updateAuth()
+      this.updateAuth()  
     },
 
     click(){
@@ -61,7 +65,10 @@ export default {
 
   created: function(){
     this.updateAuth()
+
+
   }
+
 
 };
 </script>
@@ -76,6 +83,7 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+
 
 #nav {
   padding-bottom: 30px;

@@ -1,26 +1,15 @@
 <template>
-  <div class="d-flex col-bg-3">
+  <div class="space-buttom">
+    
     <b-card
       :img-src="url"
-      img-height="200px"
-      style="width: 200px;"
+      img-height="150px"
+      style="width:250px;"
     >
       <div>
       <p>hola</p>
       <p>{{name}}</p>
       </div>
-      <div>
-        <b-button
-          variant="primary"
-          >Descargar</b-button>
-          <b-button
-          v-b-modal="modalId"
-          variant="danger"
-          >Eliminar</b-button>
-        <b-modal :id="modalId" title="Eliminar Archivo">
-          <p class="my-4">Hello from modal!</p>
-        </b-modal>
-      </div>  
     </b-card>
   </div>
 
@@ -42,11 +31,19 @@ export default {
   display: flex !important;
   flex-direction:row !important;
   max-width: 20rem !important;
+
 }
 
 .row{
   display: block !important;
 }
+
+.space-buttom{
+  padding-bottom: 3%;
+
+}
+
+
 #table2{
   table-layout: fixed;
   width: 100%;

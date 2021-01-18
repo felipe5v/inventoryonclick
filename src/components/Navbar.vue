@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="navbar-height">
     <b-navbar toggleable="lg" type="dark" variant="info" class="navbar">
       <b-navbar-brand id="titulo" to="/">INVENTORY ON-CLICK</b-navbar-brand>
 
@@ -7,7 +7,7 @@
 
       <b-collapse id="nav-collapse" is-nav>
 
-        <b-navbar-nav id="buscador">
+        <b-navbar-nav id="buscador" style="margin-left: 3%; height: 37px; width: 282px;">
             <b-nav-form @submit.prevent="search" >
                 <b-input-group>
                     <b-input-group-prepend>
@@ -18,6 +18,8 @@
             </b-nav-form>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
+          <b-nav-item class="headericon textonav" to="/crearusuario/">Agregar Usuario</b-nav-item>
+          <b-nav-item class="headericon textonav" to="/agregar/">Agregar Producto</b-nav-item>
           <b-nav-item class="headericon textonav" @click="salir">Salir</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
@@ -48,7 +50,9 @@ export default {
 <style>
 .navbar {
     background: linear-gradient(90deg, #239E9C 0%, #57A19F 100%);
+    max-height: 60px;
 }
+
 .nav-link:hover {
     color: white !important;
     transition: all 300ms;

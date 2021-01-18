@@ -1,8 +1,10 @@
 <template>
   <div class="home">
     <h1 style="text-align: left; padding-left: 18rem; padding-bottom: 1rem;">Agregado recientemente</h1>
-    <div class="row">
-        <ProductCard style="margin: center"
+    <div class="container-rowes">
+      <b-card-group deck>
+
+            <ProductCard style="margin: center"
           :refer="products.ref"
           :name="products.name"
           :date="products.date"
@@ -14,6 +16,7 @@
           :key="products.ref"
 
         />
+      </b-card-group>
       <b-pagination
         v-model="currentPage"
         :total-rows="getRows"
@@ -61,6 +64,20 @@ export default {
 // b-card {
 // padding: 10px;
 // }
+.container-rowes {
+  display: -ms-flexbox;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 2%;
+  margin-bottom: 5%;
+
+}
+.card-deck{
+
+  justify-content: center;
+}
+
+
 .row {
   display: block !important;
 }
