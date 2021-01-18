@@ -16,6 +16,11 @@ const routes = [
     component: () => import("../views/AddProduct.vue")
   },
   {
+    path: "/actualizar/",
+    name: "UpdateProduct",
+    component: () => import("../views/UpdateProduct.vue")
+  },
+  {
     path: "/login/",
     name: "Login",
     component:() =>

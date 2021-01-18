@@ -1,19 +1,19 @@
 <template>
     <div class="navbar-height">
     <b-navbar toggleable="lg" type="dark" variant="info" class="navbar">
-      <b-navbar-brand id="titulo" to="/">INVENTORY ON-CLICK</b-navbar-brand>
+      <b-navbar-brand id="titulo" to="/" style="color: white; margin-left: 3%; font-weight: bold; font-size: 35px;">Inventory-OnClick</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
 
-        <b-navbar-nav id="buscador" style="margin-left: 3%; height: 37px; width: 282px;">
+        <b-navbar-nav id="buscador" style="margin-left: 3%; height: 76px; width: 500px;">
             <b-nav-form @submit.prevent="search" >
-                <b-input-group>
+                <b-input-group >
                     <b-input-group-prepend>
                     <span class="input-group-text"><i class="fas fa-search"></i></span>
                     </b-input-group-prepend>
-                    <b-form-input placeholder="Busca un producto"></b-form-input>
+                    <b-form-input placeholder="Busca productos de interes" style="width: 420px"></b-form-input>
                 </b-input-group>
             </b-nav-form>
         </b-navbar-nav>
@@ -49,12 +49,11 @@ export default {
 
 <style>
 .navbar {
-    background: linear-gradient(90deg, #239E9C 0%, #57A19F 100%);
+    background: linear-gradient(90deg, #140085 0%, #38bcd3 53.65%, #00e1ff 100%);
     max-height: 60px;
 }
 
 .nav-link:hover {
-    color: white !important;
     transition: all 300ms;
 }
 </style>

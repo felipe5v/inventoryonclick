@@ -14,9 +14,10 @@
             id="input-1"	
             v-model="form.ref"	
             type="number"	
-            placeholder="Ingrese la referencia"	
+            placeholder=""
             required	
             autofocus	
+            
             ></b-form-input>	
         </b-form-group>	
         <br>
@@ -25,7 +26,7 @@
             class="form-control-md"	
             id="input-2"	
             v-model="form.name"	
-            placeholder="Ingrese el nombre del producto"	
+            placeholder=""	
             type="text"	
             required	
             ></b-form-input>	
@@ -36,7 +37,7 @@
             class="form-control-md"	
             id="input-3"	
             v-model="form.price"	
-            placeholder="Ingrese el precio del producto"	
+            placeholder=""	
             type="number"	
             required	
             ></b-form-input>	
@@ -47,7 +48,7 @@
             class="form-control-md"	
             id="input-4"	
             v-model="form.qty"	
-            placeholder="Ingrese el numero de unidades"	
+            placeholder=""	
             type="number"	
             required	
             ></b-form-input>	
@@ -60,7 +61,7 @@
             class="form-control-md"	
             id="input-5"	
             v-model="form.category"	
-            placeholder="Ingrese la categoria"	
+            placeholder=""
             required	
             ></b-form-input>	
         </b-form-group>	
@@ -103,7 +104,37 @@ import firebase from 'firebase'
         show: true	
       }	
     },	
+    mounted: function(){
+
+      //{{form.category}}
+      //{{form.qty}}
+      //{{form.price}}
+      //{{form.name}}
+ /* 
+      var input = document.getElementById("input-group-1");
+      var input2 = document.getElementById("input-2");
+      input2.placeholder = this.form.name
+      if(input.addEventListener("onblur", this.processData())==true){
+        alert(this.form.name)
+      }*/
+    },
     methods: {	
+
+      processData: function(){
+            axios.get("https://inventoryonclickback.herokuapp.com/products/" + this.form.ref)
+                .then((result) => {
+                    const datos =result.data
+                    this.form.name = datos.name
+                    this.form.price = datos.price
+                    this.form.qty = datos.qty
+                    this.form.category = datos.category
+                })
+                .catch((error) => {
+                  if (error.response.status == "404")
+                    alert("ERROR 404: Datos no encontrados.");   
+                });
+      },
+
       async onSubmit(event) {	
         event.preventDefault()	
         this.form.ref = parseInt(this.form.ref);	
@@ -132,7 +163,8 @@ import firebase from 'firebase'
           this.show = true	
         })	
       }	
-    }	
+    },
+
   }	
 </script>
 
