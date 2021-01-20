@@ -14,6 +14,7 @@ export default new Vuex.Store({
     rowsnotification: 0,
     rows: 0,
     showSpinner: false,
+    openCards: ''
   },
   mutations: {
     SET_PRODUCTS(state, products) {
@@ -27,6 +28,9 @@ export default new Vuex.Store({
     },
     SET_SPINNER(state, spinner) {
       state.showSpinner = spinner;
+    },
+    SET_OPENCARDS(state, opencards){
+      state.openCards = opencards
     }
   },
   actions: {
@@ -68,7 +72,9 @@ export default new Vuex.Store({
         perPage: 10
       });
     },
-
+    changeOpencards({ commit }, state){
+      commit("SET_OPENCARDS", state)
+    }
 
   },
   getters: {
@@ -84,6 +90,9 @@ export default new Vuex.Store({
     getSpinner(state) {
       return state.showSpinner;
     },
+    getOpencards(state) {
+      return state.openCards
+    }
   },
   modules: {}
 });

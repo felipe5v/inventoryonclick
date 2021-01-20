@@ -1,7 +1,8 @@
 <template>
-  <div class="space-buttom" @click="click"  >
+  <div class="space-buttom"  >
     
     <b-card
+      @click="click"
       :img-src="url"
       img-height="150px"
       style="width:250px;"
@@ -10,7 +11,7 @@
         <div class="item-1">{{name}}</div>
         <div hidden>{{refer}}</div>
         <div class="item-2">${{price}}</div>
-        <div class="item-3" v-if="show">
+        <div class="item-3" v-if="getOpencards == refer">
           <b-form  @submit="onSubmit" @reset="onReset" >	
             <b-form-group	
                 id="input-group-1"	
@@ -18,10 +19,11 @@
                 label-for="input-1"	
             >	
                 <b-form-input
-                @blur="close"		
-                id="input-1"	
-                v-model="form.qty"
-                :value="form.qty"	
+                @blur="close"
+                @change="savechange"		
+                id="input-1"
+                :v-model="form.qty"	
+                :value="qtychange"	
                 type="number"		
                 required	
                 autofocus	
@@ -39,6 +41,7 @@
 
 <script>
 import axios from "axios"
+import { mapGetters } from 'vuex'
 export default {
   props: ["refer","name", "price", "qty", "category", "url" ],
   data() {	
@@ -46,30 +49,42 @@ export default {
         form: {	
             qty: ""
         },
-        show: false
+        qtychange: ""
       }
   },
   methods: {
     click(){
       axios.get('https://inventoryonclickback.herokuapp.com/products/'+ this.refer +'/qty').then(response => {var datos = response.data;
-      this.form.qty = datos;
-      this.show = true;})
+      this.qtychange = datos;
+      this.$store.dispatch("changeOpencards", this.refer);})
 
     },
   
     close(){
+      this.focus = false
       this.show = false
+      this.firstclick = true
     },
     async onSubmit(event) {	
       event.preventDefault()
-        let post = {
-          qty: this.form.qty,
-        };
-        await axios.put('https://inventoryonclickback.herokuapp.com/products/'+ this.refer, post)
-        this.show = false;
-      
+      alert(this.form.qty)
+      let post = {
+        qty: this.qtychange,
+      };
+      await axios.put('https://inventoryonclickback.herokuapp.com/products/'+ this.refer, post).then(response => {var datos = response;
+      if (datos != null){
+        datos = null
+      }
+      this.show = false})
+    },
+    savechange(){
+      alert(this.form.qty)
+      this.qtychange = this.form.qty - 1
     }
   },
+  computed: {
+    ...mapGetters(['getOpencards'])
+  }
   
 }
 </script>
