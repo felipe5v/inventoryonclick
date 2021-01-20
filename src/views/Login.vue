@@ -113,10 +113,11 @@ export default {
 
 <style>
 
-
 .bodyLogin{
     font-family: 'Poppins', sans-serif;
     overflow: hidden;
+	text-align: -webkit-center;
+	min-width: 100px;
 }
 
 .wave{
@@ -136,12 +137,16 @@ export default {
     grid-gap :3rem;
     padding: 0 2rem;
 	margin-left: 0%;
+	max-width: 1100px;
+	min-width: 100;
 }
 
 .img{
 	display: flex;
 	justify-content:flex-start;
 	align-items:baseline;
+	max-width: 500px;
+	max-height: 755px;
 }
 
 .login-content{
@@ -151,11 +156,12 @@ export default {
 	text-align: center;
 }
 
+
 .img img{
-	width: 500px;
 	position: relative;
 	top: 170px; /* ajustar los valores para mover la imagen */
-    
+    max-width: 500px;
+
 }
 
 .hed{
@@ -165,6 +171,7 @@ export default {
 
 .login-content img{
     height: 100px;
+	
 }
 
 .login-content h2{
@@ -172,6 +179,7 @@ export default {
 	color: #333;
 	text-transform: uppercase;
 	font-size: 2.9rem;
+	
 }
 
 .login-content .input-div{
@@ -219,7 +227,7 @@ export default {
 	bottom: -2px;
 	width: 0%;
 	height: 2px;
-	background-color: #38d39f;
+	background-color: #14c2ee;
 	transition: .4s;
 }
 
@@ -241,7 +249,7 @@ export default {
 }
 
 .input-div.focus > .i > i{
-	color: #38d39f;
+	color: #14c2ee;
 }
 
 .input-div > div > input{
@@ -309,7 +317,7 @@ a:hover{
 
 @media screen and (max-width: 1000px){
 	form{
-		width: 400px;
+		min-width: 150px;
 	}
 
 	.login-content h2{
@@ -340,5 +348,11 @@ a:hover{
 	}
 }
 
+@media only screen and (max-width:600px)
+{
+	.login-content{
+		min-width: 280px;
+	}
+} 
 
 </style>
