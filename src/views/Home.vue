@@ -1,5 +1,8 @@
 <template>
   <div class="home">
+    <div class="page" v-if="getSpinner">
+      <b-spinner class="spinner" :variant="'primary'" :key="'primary'"></b-spinner>
+    </div>
     <h1 style="text-align: left; padding-left: 18rem; padding-bottom: 1rem;">Agregado recientemente</h1>
     <div class="container-rowes">
       <b-card-group deck>
@@ -48,7 +51,7 @@ export default {
   },
   components: { "ProductCard": ProductCard },
   computed: {
-    ...mapGetters(["getRows", "getDisplayProducts"])
+    ...mapGetters(["getRows", "getDisplayProducts", "getSpinner"])
   },
   methods: {
     paginate(currentPage) {
@@ -61,9 +64,21 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-// b-card {
-// padding: 10px;
-// }
+
+.page {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 25;
+  width: 100%;
+  height: 100%;
+}
+
+.spinner {
+  z-index: 26;
+  position: relative;
+  top: 50%;
+}
+
 .container-rowes {
   display: -ms-flexbox;
   margin-left: 10%;

@@ -12,7 +12,6 @@
 
 <script>
 import Navbar from "@/components/Navbar.vue";
-import { mapGetters } from "vuex";
 
 export default {
   data: function(){
@@ -22,9 +21,6 @@ export default {
   },
   components: { "Navbar": Navbar},
 
-  computed:{
-    ...mapGetters(["getSpinner"])
-  },
 
   methods:{
 
@@ -73,8 +69,6 @@ export default {
 </script>
 
 <style lang="scss">
-
-
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -82,7 +76,6 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-
 
 #nav {
   padding-bottom: 30px;
@@ -95,18 +88,6 @@ export default {
       color: #03241e;
     }
   }
-}
-.page {
-  position: absolute;
-  background: rgba(0, 0, 0, 0.3);
-  z-index: 25;
-  width: 100%;
-  height: 100%;
-}
-.spinner {
-  z-index: 26;
-  position: relative;
-  top: 50%;
 }
 
 </style>
