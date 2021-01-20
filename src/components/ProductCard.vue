@@ -19,10 +19,10 @@
                 label-for="input-1"	
             >	
                 <b-form-input
+                ref="forminput"
                 @blur="close"
                 @change="savechange"		
                 id="input-1"
-                :v-model="form.qty"	
                 :value="qtychange"	
                 type="number"		
                 required	
@@ -78,8 +78,8 @@ export default {
       this.show = false})
     },
     savechange(){
-      alert(this.form.qty)
-      this.qtychange = this.form.qty - 1
+      alert(this.$refs.forminput.value)
+      
     }
   },
   computed: {
