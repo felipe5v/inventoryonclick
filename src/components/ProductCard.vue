@@ -12,25 +12,23 @@
         <div hidden>{{refer}}</div>
         <div class="item-2">${{price}}</div>
         <div class="item-3" v-if="getOpencards == refer">
-          <b-form  @submit="onSubmit" @reset="onReset" >	
+          <b-form>	
             <b-form-group	
                 id="input-group-1"	
                 label="Disponibilidad:"	
                 label-for="input-1"	
             >	
                 <b-form-input
-                ref="forminput"
-                @blur="close"
-                @change="savechange"		
+                ref="forminput"		
                 id="input-1"
-                :value="qtychange"	
+                v-model="form.qty"
                 type="number"		
-                required	
-                autofocus	
+                required
+                :max="maxvalue"
+                min="0"	
                 ></b-form-input>	
             </b-form-group>
-            <b-button type="submit" variant="primary"><i class="fas fa-check"></i></b-button>	
-            <b-button type="reset" variant="danger"><i class="fas fa-times"></i></b-button>
+            <b-button @click="onSubmit" type="submit" variant="primary"><i class="fas fa-check"></i></b-button>	
           </b-form>
         </div>	
       </div>
@@ -49,38 +47,30 @@ export default {
         form: {	
             qty: ""
         },
-        qtychange: ""
+        maxvalue: ""
       }
   },
   methods: {
     click(){
+      if (this.refer != this.getOpencards){
       axios.get('https://inventoryonclickback.herokuapp.com/products/'+ this.refer +'/qty').then(response => {var datos = response.data;
-      this.qtychange = datos;
-      this.$store.dispatch("changeOpencards", this.refer);})
+      this.form.qty = datos;
+      this.maxvalue = datos;
+      this.$store.dispatch("changeOpencards", this.refer);})}
 
-    },
-  
-    close(){
-      this.focus = false
-      this.show = false
-      this.firstclick = true
     },
     async onSubmit(event) {	
       event.preventDefault()
       alert(this.form.qty)
       let post = {
-        qty: this.qtychange,
+        qty: this.form.qty,
       };
       await axios.put('https://inventoryonclickback.herokuapp.com/products/'+ this.refer, post).then(response => {var datos = response;
       if (datos != null){
         datos = null
-      }
-      this.show = false})
-    },
-    savechange(){
-      alert(this.$refs.forminput.value)
-      
+      }})
     }
+      
   },
   computed: {
     ...mapGetters(['getOpencards'])
