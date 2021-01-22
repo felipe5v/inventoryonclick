@@ -4,31 +4,24 @@
     <b-card
       @click="click"
       :img-src="url"
-      img-height="150px"
-      style="width:250px;"
+      img-height="190px"
+      style="width:270px;"
     >
       <div class="griddeproducto" >
-        <div class="item-1">{{name}}</div>
+        <div class="item-1"><b>{{name}}</b></div>
         <div hidden>{{refer}}</div>
         <div class="item-2">${{price}}</div>
         <div class="item-3" v-if="getOpencards == refer">
-          <b-form>	
-            <b-form-group	
-                id="input-group-1"	
-                label="Disponibilidad:"	
-                label-for="input-1"	
-            >	
-                <b-form-input
-                ref="forminput"		
-                id="input-1"
-                v-model="form.qty"
-                type="number"		
-                required
-                min="0"	
-                ></b-form-input>	
-            </b-form-group>
-            <b-button @click="onSubmit" type="submit" variant="primary"><i class="fas fa-check"></i></b-button>	
-          </b-form>
+          <b-input-group
+            size="md"
+            class="mb-3"
+            prepend="Disponible:"            
+          >
+            <b-form-input type="number" required min="0" v-model="form.qty"></b-form-input>
+            <b-input-group-append>
+              <b-button @click="onSubmit" type="submit" size="sm" text="Button" variant="primary"><i class="fas fa-check"></i></b-button>
+            </b-input-group-append>
+          </b-input-group>
         </div>	
       </div>
     </b-card>
@@ -58,7 +51,6 @@ export default {
     },
     async onSubmit(event) {	
       event.preventDefault()
-      alert(this.form.qty)
       let post = {
         qty: this.form.qty,
       };
@@ -78,15 +70,28 @@ export default {
 
 <style lang="scss" scoped>
 
-.item-1{ grid-area: nam;}
-.item-2{ grid-area: pri;}
-.item-3{ grid-area: form;}
+.item-1{ 
+  grid-area: nam;
+  text-transform: capitalize;
+  text-align: left;
+}
+.item-2{ 
+  grid-area: pri;
+  text-align: right;
+  color: grey}
+.item-3{ 
+  grid-area: form;
+  display: inline-block;
+}
 
 .griddeproducto {
   display: grid;
+  row-gap: 10px;
   grid-template-areas: 
   'nam nam nam pri pri '
   'nam nam nam pri pri'
+  '. . . . .'
+  '. . . . .'
   'form form form form form'
   'form form form form form'
   'form form form form form'
@@ -116,4 +121,20 @@ export default {
   text-align: center;
 }
 
+.card-img{
+  object-fit: contain;
+}
+
+#input-1{
+  width: 80px !important;
+  padding: 0!important;
+}
+.input-group-text{
+  font-weight: bold!important;
+  font-size: 0.96rem!important;
+  background-color: unset!important;
+  border: unset!important;
+  padding-left: 0;
+  padding-right: 0.75rem ;
+}
 </style>
