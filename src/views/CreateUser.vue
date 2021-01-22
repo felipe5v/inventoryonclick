@@ -59,8 +59,8 @@
             ></b-form-input>
       </b-form-group>
 
-      <b-button type="submit" variant="primary">Submit</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
+      <b-button type="submit" variant="primary">Enviar</b-button>
+      <b-button type="reset" variant="danger">Limpiar</b-button>
     </b-form>
   </div>
 </template>
@@ -86,15 +86,14 @@ import axios from "axios"
         event.preventDefault()
         const res = await axios.post('https://inventoryonclickback.herokuapp.com/users/', JSON.stringify(this.form));
         alert(res.data)
+        
       },
       onReset(event) {
         event.preventDefault()
-        // Reset our form values
         this.form.email = ''
         this.form.name = ''
         this.form.food = null
         this.form.checked = []
-        // Trick to reset/clear native browser form validation state
         this.show = false
         this.$nextTick(() => {
           this.show = true

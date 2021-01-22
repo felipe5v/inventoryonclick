@@ -1,5 +1,5 @@
 <template>
-    <div id="AuthUser" class="auth_user">
+    <div id="RecoverUser" class="auth_user">
         <div class="headLogin">
             <meta http-equiv='cache-control' content='no-cache'>
         <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
@@ -8,7 +8,7 @@
         <div class="bodyLogin">
             <img class="wave" src="../assets/img3.png" />
                 <div class="login-content">
-                    <form class="hederform" v-on:submit.prevent="processAuthUser">
+                    <form class="hederform" v-on:submit.prevent="processRecoverUser">
                         <div class="borderform">
                         <h3 class="title" style="font-size: 27px;">Recuperar Contraseña</h3>
                         <div class="input-div one">
@@ -17,7 +17,7 @@
                         </div>
                             <div class="div">
                                 <h5>Correo Electronico</h5>
-                                <input type="text" class="input"  v-model="user_in.username" name="Usuario">
+                                <input type="text" class="input"  v-model="RecoverUser.email" name="Usuario">
                             </div>
                         </div>
               
@@ -36,6 +36,15 @@
 import axios from 'axios';
 
 export default {
+
+	name: "UserAuth",
+    data: function(){
+        return {
+            RecoverUser: {
+                email:"",
+            }
+        }
+    },
 	mounted: function() {
 		const inputs = document.querySelectorAll(".input");
 
@@ -57,24 +66,15 @@ export default {
 		});
 	
 	},
-    name: "UserAuth",
-    data: function(){
-        return {
-            user_in: {
-                username:"",
-            }
-        }
-    },
     methods: {
         recovery() {
             this.$emit("click");
         },
-        processAuthUser: function(){
+        processRecoverUser: function(){
             var self = this
-            axios.post("https://inventoryonclickback.herokuapp.com/login/", self.user_in,  {headers: {}})
-                .then((result) => {
-                    if(result.data.Autenticado == true){
-                        self.$emit('log-in', self.user_in.username, result.data.Tipo)}
+            axios.post("https://inventoryonclickback.herokuapp.com/recovery/?mail=" + self.RecoverUser.email).then((result) => {
+                    if(result.data.Autenticad == true){
+                        self.$emit('log-in', self.RecoverUser.email, result.data.Tipo)}
                 })
                 .catch((error) => {
                     

@@ -88,20 +88,6 @@ import axios from "axios"
         show: true	
       }	
     },	
-    mounted: function(){
-
-      //{{form.category}}
-      //{{form.qty}}
-      //{{form.price}}
-      //{{form.name}}
- /* 
-      var input = document.getElementById("input-group-1");
-      var input2 = document.getElementById("input-2");
-      input2.placeholder = this.form.name
-      if(input.addEventListener("onblur", this.processData())==true){
-        alert(this.form.name)
-      }*/
-    },
     methods: {	
 
       close(){
@@ -160,7 +146,5 @@ import axios from "axios"
 </script>
 
 <style>
-
-
 
 </style>
