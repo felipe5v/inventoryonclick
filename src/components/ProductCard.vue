@@ -24,7 +24,6 @@
                 v-model="form.qty"
                 type="number"		
                 required
-                :max="maxvalue"
                 min="0"	
                 ></b-form-input>	
             </b-form-group>
@@ -46,8 +45,7 @@ export default {
       return {	
         form: {	
             qty: ""
-        },
-        maxvalue: ""
+        }
       }
   },
   methods: {
@@ -55,7 +53,6 @@ export default {
       if (this.refer != this.getOpencards){
       axios.get('https://inventoryonclickback.herokuapp.com/products/'+ this.refer +'/qty').then(response => {var datos = response.data;
       this.form.qty = datos;
-      this.maxvalue = datos;
       this.$store.dispatch("changeOpencards", this.refer);})}
 
     },
