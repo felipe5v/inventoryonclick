@@ -1,5 +1,5 @@
 <template>
-    <div id="AuthUser" class="auth_user">
+    <div id="AuthUser" class="auth_user" >
         <div class="headLogin">
             <meta http-equiv='cache-control' content='no-cache'>
         <meta http-equiv='expires' content='0'>
@@ -8,7 +8,7 @@
         <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         </div>
-        <div class="bodyLogin">
+        <div class="bodyLogin" >
             <img class="wave" src="../assets/img3.png"/>
             <div class="containerLogin">
                 <div class="login-content">

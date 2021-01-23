@@ -1,5 +1,6 @@
 <template>
-    <div id="RecoverUser" class="auth_user">
+
+    <div id="RecoveryPass">
         <div class="headLogin">
             <meta http-equiv='cache-control' content='no-cache'>
         <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
@@ -8,23 +9,29 @@
         <div class="bodyLogin">
             <img class="wave" src="../assets/img3.png" />
                 <div class="login-content">
-                    <form class="hederform" v-on:submit.prevent="processRecoverUser">
+                    <form class="hederform" >
                         <div class="borderform">
-                        <h3 class="title" style="font-size: 27px;">Recuperar Contraseña</h3>
-                        <div class="input-div one">
-                        <div class="i">
-                                <i class="fas fa-envelope"></i>
+							<h3 class="title" style="font-size: 27px;">Restablecer Contraseña</h3>
+							<div class="input-div pass1">
+							<div class="i">
+									<i class="fas fa-lock"></i>
+							</div>
+								<div class="div">
+									<h5>Nueva Contraseña</h5>
+									<input type="password" class="input"  v-model="Password.pass1" name="Usuario">
+								</div>
+							</div>
+							<div class="input-div pass2">
+							<div class="i">
+									<i class="fas fa-lock"></i>
+							</div>
+								<div class="div">
+									<h5>Verificar Contraseña</h5>
+									<input type="password" class="input" v-model="Password.pass2" name="Usuario2">
+								</div>
+							</div>
+							<b-col cols="6" ><button type="submit" class="btnRecover" variant="link" @click="processPass">Enviar</button></b-col>
                         </div>
-                            <div class="div">
-                                <h5>Correo Electronico</h5>
-                                <input type="text" class="input"  v-model="RecoverUser.email" name="Usuario">
-                            </div>
-                        </div>
-              
-                        <b-col cols="6" ><button type="submit" class="btnRecover" variant="link" @click="submit">Enviar</button></b-col>
-                  
-                        </div>
-                        
                     </form>
                 </div>
         </div>
@@ -32,16 +39,15 @@
 </template>
 
 <script>
-
 import axios from 'axios';
 
 export default {
 
-	name: "RecoverUser",
     data: function(){
         return {
-            RecoverUser: {
-                email:""
+            Password: {
+				pass1:"",
+				pass2:"",
             }
         }
     },
@@ -67,15 +73,21 @@ export default {
 	
 	},
     methods: {
-        async processRecoverUser(){
-            var self = this
-            axios.get("https://inventoryonclickback.herokuapp.com/recovery/?mail=" + self.RecoverUser.email) .then((result) => {
-                self.$emit('recover', result.data) })
-                .catch((error) => {
-                    if (error.response.status == "404")
-                        alert("Usuario no encontrado.");
-				});	
+
+        processPass(){
+			if(this.Password.pass1==this.Password.pass2){
+				let pass = localStorage.getItem('Recovery')
+				let post = {
+				user_password: this.Password.pass1
+				};
+				axios.put("https://inventoryonclickback.herokuapp.com/users/?password=" + pass , post);
+				localStorage.removeItem('Recovery')
+			}else{
+				alert("Contraseña no iguales")
+			}	
         }
+
+
 	}
 }
 </script>
@@ -124,7 +136,7 @@ export default {
 }
 
 .hederform{
-	width: 400px;
+	width: 420px;
     border: 1px solid #dadce0;
     border-radius: 8px;
 }
@@ -152,7 +164,7 @@ export default {
 	transition: .3s;
 }
 
-.input-div.one{
+.input-div.pass1{
     margin-top: 25% !important;
     margin-bottom: 0% !important;
 }
@@ -218,7 +230,7 @@ export default {
 	font-family: 'poppins', sans-serif;
 }
 
-.input-div.pass{
+.input-div.pass1{
 	margin-bottom: 4px;
 }
 
@@ -249,7 +261,6 @@ a:hover{
 	text-transform: uppercase;
 	cursor: pointer;
 	transition: .5s;
-    margin: 1rem;
     margin-left: 175px;
     margin-bottom: 130px;
     

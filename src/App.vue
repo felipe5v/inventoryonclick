@@ -4,9 +4,9 @@
       <b-spinner class="spinner" :variant="'primary'" :key="'primary'"></b-spinner>
     </div>
     <div id="nav">
-      <Navbar v-if="is_auth" @click="click" />
+      <Navbar v-if="is_auth" @click="click"  />
     </div>
-    <router-view v-on:log-in="logIn" @click="recovery"/>
+    <router-view v-on:recover="recoveryPass" v-on:log-in="logIn" @click="recovery"   />
   </div>
 </template>
 
@@ -16,17 +16,23 @@ import Navbar from "@/components/Navbar.vue";
 export default {
   data: function(){
       return{ 
-        is_auth: localStorage.getItem('isAuth') || false
-      }    
+        is_auth: localStorage.getItem('isAuth') || false}    
   },
   components: { "Navbar": Navbar},
 
 
   methods:{
-
+    init: function(){
+      var x = this
+      let password = localStorage.getItem('Recovery')
+      if(window.location.pathname=="/recuperar/"+ password){
+        x.$router.push({name: "RecoveryPass", params:{ pass: password }})
+      }
+    },
 
     updateAuth: function(){
       var self = this
+
       self.is_auth  = localStorage.getItem('isAuth')
 
       if(self.is_auth == null){
@@ -37,8 +43,13 @@ export default {
       if(self.is_auth == false){
         self.$router.push({name: "Login"})
       }
+
+      self.init()
     },
 
+    recoveryPass: function(pass){        
+      localStorage.setItem('Recovery', pass)
+    },
     logIn: function(username, client){
       localStorage.setItem('current_username', username)
       localStorage.setItem('client', client)
@@ -55,16 +66,16 @@ export default {
     recovery(){
       var me = this
       me.$router.push({name: "Recovery"})
-    }
-  },
+    },
 
+  },
   created: function(){
+
     this.updateAuth()
 
+  },
 
-  }
-
-
+  
 };
 </script>
 
